@@ -1,6 +1,16 @@
 import { Request, Response } from "express";
 import pageModel from "../models/page.model";
 
+export const getTest = async (req: Request, res: Response) => {
+  try {
+    const all = await pageModel.find({}, { _id: 0, __v: 0 });
+    res.json(all);
+    console.log("all..");
+  } catch (error) {
+    res.status(400).send({ message: "getPage error" });
+  }
+};
+
 export const getPages = async (req: Request, res: Response) => {
   try {
     const page: any = req.params.id;
@@ -11,7 +21,6 @@ export const getPages = async (req: Request, res: Response) => {
       { sort: { id: 1 }, skip: skip * 10, limit: 10 }
     );
     res.status(200).json(pages);
-    console.log(pages);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
