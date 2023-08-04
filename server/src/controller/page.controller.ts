@@ -38,7 +38,7 @@ export const pageAll = async (req: Request, res: Response) => {
     newsort.skip = query.skip ? skip * 1 : 0;
 
     for (let i = 0; i < queryKeys.length; i++) {
-      if (queryKeys[i] === "mmm") {
+      if (queryKeys[i]) {
         news[`$or`] = [
           { title: { $regex: query[queryKeys[i]], $options: "i" } },
           { body: { $regex: query[queryKeys[i]], $options: "i" } },
